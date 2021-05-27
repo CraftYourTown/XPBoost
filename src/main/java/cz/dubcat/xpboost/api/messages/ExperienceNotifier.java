@@ -2,18 +2,14 @@ package cz.dubcat.xpboost.api.messages;
 
 import cz.dubcat.xpboost.XPBoostMain;
 import cz.dubcat.xpboost.api.MainAPI;
-import cz.dubcat.xpboost.utils.ActionBar;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
 public class ExperienceNotifier {
 
     private String messageSettingsPath = "settings.experienceGainedMessagesOptions";
     private String messageReminderSettingsPath = "settings.activeBoostReminderOptions";
-    private ActionBar actionBar;
-
-    public ExperienceNotifier() {
-        this.actionBar = new ActionBar();
-    }
 
     public void experienceGainedNotification(Player player, String message) {
         if (this.notificationsEnabled()) {
@@ -36,7 +32,7 @@ public class ExperienceNotifier {
     private void sendNotification(Player player, MessageLocation messageLocation, String message) {
         switch (messageLocation) {
             case ACTIONBAR:
-                this.actionBar.sendActionBar(player, MainAPI.colorizeText(message));
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(MainAPI.colorizeText(message)));
                 break;
             case CHAT:
                 MainAPI.sendMessage(message, player);

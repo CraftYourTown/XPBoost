@@ -36,7 +36,7 @@ dependencies {
     shadow 'org.spigotmc:spigot:1.16.4'
     shadow("com.github.MilkBowl:VaultAPI:1.7") { exclude group: "org.bukkit" }
     shadow "me.clip:placeholderapi:2.10.9"
-    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+
     // ew lombok
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'

@@ -7,8 +7,6 @@ import cz.dubcat.xpboost.api.XPBoostAPI;
 import cz.dubcat.xpboost.constructors.Debug;
 import cz.dubcat.xpboost.constructors.GlobalBoost;
 import cz.dubcat.xpboost.constructors.XPBoost;
-import org.bukkit.entity.ExperienceOrb;
-import org.bukkit.entity.ExperienceOrb.SpawnReason;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,14 +25,6 @@ public class PlayerExperienceChangeListener implements Listener {
             return;
         }
 
-        if (XPBoostMain.getPlugin().isPaperSpigot() && event.getSource() instanceof ExperienceOrb &&
-                XPBoostMain.getPlugin().getConfig().getInt("settings.xpbottlemode") == 4) {
-            ExperienceOrb expOrb = (ExperienceOrb) event.getSource();
-
-            if (expOrb.getSpawnReason() == SpawnReason.EXP_BOTTLE) {
-                return;
-            }
-        }
         Player player = event.getPlayer();
 
         int exp = event.getAmount();
