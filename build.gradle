@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+group 'cz.dubcat.xpboost'
+version '3.5.0'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'https://repo.rosewooddev.io/repository/public/' }
+    maven { url 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+    maven { url 'https://repo.codemc.org/repository/maven-public' }
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://papermc.io/repo/repository/maven-public/' }
+    maven { url 'https://repo.mvdw-software.be/content/groups/public/' }
+    maven { url 'https://nexus.neetgames.com/repository/maven-releases/' }
+
+    flatDir {
+        dirs "libs"
+    }
+
+}
+
+dependencies {
+    shadow 'org.spigotmc:spigot:1.16.4'
+    shadow("com.github.MilkBowl:VaultAPI:1.7") { exclude group: "org.bukkit" }
+    shadow "me.clip:placeholderapi:2.10.9"
+    compileOnly 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+    // ew lombok
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'com.gmail.nossr50.mcMMO:mcMMO:2.1.188'
+
+    compileOnly('com.github.Zrips:Jobs:4.17.2') {
+        // Exclude all the worldedit & worldguard groups
+        exclude group: 'com.sk89q'
+        exclude group: 'com.sk89q.worldedit'
+        exclude group: 'com.sk89q.worldguard'
+    }
+
+    implementation 'com.zaxxer:HikariCP:3.4.1'
+}
+
+shadowJar {
+    archiveClassifier.set(null)
+    relocate ('com.zaxxer', "${project.group}.libs.hikari")
+    relocate ('org.slf4j', "${project.group}.libs.slf4j")
+}
+
+build.dependsOn shadowJar
